@@ -10,7 +10,7 @@ public final class ReviewDialog extends BasePage {
 
     public ReviewDialog() {
         super(
-                "//*[@text='Thank you for submitting your review!']/..",
+                "//*[@content-desc='Closes review dialog']/..",
                 ""
         );
     }
