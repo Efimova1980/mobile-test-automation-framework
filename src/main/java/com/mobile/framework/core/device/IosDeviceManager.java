@@ -27,7 +27,7 @@ public final class IosDeviceManager implements DeviceManager {
     }
 
     @Override
-    public void startApp(String appId, String activityName) throws IOException, InterruptedException {
+    public void startApp(String appId) throws IOException, InterruptedException {
         DeviceCommandRunner.runCommand(List.of("xcrun", "simctl", "launch", IOS_DEVICE, appId));
     }
 
@@ -56,6 +56,13 @@ public final class IosDeviceManager implements DeviceManager {
     public boolean isAppInstalled(String appId) throws IOException, InterruptedException {
         String output = DeviceCommandRunner.runCommand(List.of("xcrun", "simctl", "listapps", IOS_DEVICE));
         return output.contains("\"" + appId + "\"");
+    }
+
+    @Override
+    public boolean isAppRunning(String appId) throws IOException, InterruptedException {
+        String output = DeviceCommandRunner.runCommand(List.of(
+                "xcrun", "simctl", "spawn", IOS_DEVICE, "launchctl", "list"));
+        return output.contains("UIKitApplication:" + appId + "[");
     }
 
     private void uninstallAppIfInstalled(String appId) throws IOException, InterruptedException {

@@ -13,7 +13,7 @@ public interface DeviceManager {
 
     void uninstallApp(String appId) throws IOException, InterruptedException;
 
-    void startApp(String appId, String activityName) throws IOException, InterruptedException;
+    void startApp(String appId) throws IOException, InterruptedException;
 
     void stopApp(String appId) throws IOException, InterruptedException;
 
@@ -22,4 +22,6 @@ public interface DeviceManager {
     String getLogs() throws IOException, InterruptedException;
 
     boolean isAppInstalled(String appId) throws IOException, InterruptedException;
+
+    boolean isAppRunning(String appId) throws IOException, InterruptedException;
 }

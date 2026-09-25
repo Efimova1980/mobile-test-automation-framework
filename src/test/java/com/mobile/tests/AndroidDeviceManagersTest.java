@@ -43,5 +43,23 @@ public class AndroidDeviceManagersTest {
         Assert.assertTrue(exception.getMessage().contains("INSTALL_FAILED_ALREADY_EXISTS"));
     }
 
+    @Test
+    public void startAppTestPositive() throws IOException, InterruptedException {
+        DeviceManagers.current().installApp(MobileConfig.ANDROID_APK_PATH);
+        Assert.assertFalse(DeviceManagers.current().isAppRunning(MobileConfig.ANDROID_APP_PACKAGE),
+                "App is already running right after install");
 
+        DeviceManagers.current().startApp(MobileConfig.ANDROID_APP_PACKAGE);
+
+        Assert.assertTrue(DeviceManagers.current().isAppRunning(MobileConfig.ANDROID_APP_PACKAGE),
+                "App is not running after startApp");
+    }
+
+    @Test
+    public void reinstallAppTestPositive() throws IOException, InterruptedException {
+        DeviceManagers.current().installApp(MobileConfig.ANDROID_APK_PATH);
+        DeviceManagers.current().reinstallApp(MobileConfig.ANDROID_APK_PATH, MobileConfig.ANDROID_APP_PACKAGE);
+
+        Assert.assertTrue(DeviceManagers.current().isAppInstalled(MobileConfig.ANDROID_APP_PACKAGE));
+    }
 }

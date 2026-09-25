@@ -1,5 +1,12 @@
 package com.mobile.framework.config;
 
+/**
+ * Test run configuration.
+ *
+ * iOS values are empty: running on iOS requires macOS with Xcode and a booted simulator.
+ * Download a simulator build of My Demo App
+ * (https://github.com/saucelabs/my-demo-app-ios/releases) and fill in the IOS_* values.
+ */
 public class MobileConfig {
 
     public static final String ANDROID_APP_PACKAGE = "com.saucelabs.mydemoapp.android";

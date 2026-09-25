@@ -15,7 +15,10 @@ public final class AndroidDeviceManager implements DeviceManager {
 
     @Override
     public void reinstallApp(String appPath, String appId) throws IOException, InterruptedException {
-        DeviceCommandRunner.runCommand(List.of("adb", "install", "-r", appPath));
+        if (isAppInstalled(appId)) {
+            uninstallApp(appId);
+        }
+        installApp(appPath);
     }
 
     @Override
@@ -24,9 +27,9 @@ public final class AndroidDeviceManager implements DeviceManager {
     }
 
     @Override
-    public void startApp(String appId, String activityName) throws IOException, InterruptedException {
-        DeviceCommandRunner.runCommand(List.of("adb", "shell", "am", "start", "-n",
-                appId + "/" + activityName));
+    public void startApp(String appId) throws IOException, InterruptedException {
+        DeviceCommandRunner.runCommand(List.of("adb", "shell", "monkey",
+                "-p", appId, "-c", "android.intent.category.LAUNCHER", "1"));
     }
 
     @Override
@@ -48,5 +51,11 @@ public final class AndroidDeviceManager implements DeviceManager {
     public boolean isAppInstalled(String appId) throws IOException, InterruptedException {
         String output = DeviceCommandRunner.runCommand(List.of("adb", "shell", "pm", "list", "packages", appId));
         return output.lines().anyMatch(line -> line.trim().equals("package:" + appId));
+    }
+
+    @Override
+    public boolean isAppRunning(String appId) throws IOException, InterruptedException {
+        String output = DeviceCommandRunner.runCommand(List.of("adb", "shell", "ps", "-A", "-o", "NAME"));
+        return output.lines().anyMatch(line -> line.trim().equals(appId));
     }
 }
