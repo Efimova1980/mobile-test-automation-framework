@@ -1,4 +1,5 @@
 package com.mobile.framework.pages;
+
 import com.mobile.framework.components.ProductCard;
 import com.mobile.framework.core.BasePage;
 import com.mobile.framework.core.View;

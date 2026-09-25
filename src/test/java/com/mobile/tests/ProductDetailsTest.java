@@ -1,8 +1,8 @@
 package com.mobile.tests;
 
-import com.mobile.framework.core.scroll.ScrollDirection;
 import com.mobile.framework.components.ProductCard;
 import com.mobile.framework.components.ReviewDialog;
+import com.mobile.framework.core.scroll.ScrollDirection;
 import com.mobile.framework.pages.ProductDetailsPage;
 import com.mobile.framework.pages.ProductsPage;
 import com.mobile.tests.utils.TestNGListener;
@@ -19,13 +19,13 @@ public class ProductDetailsTest extends BaseTest {
     private SoftAssert softAssert;
 
     @BeforeMethod(alwaysRun = true)
-    public void initPage(){
+    public void initPage() {
         productsPage = new ProductsPage();
         softAssert = new SoftAssert();
     }
 
     @Test
-    public void productDetailsPageContainsAllElements_Test(){
+    public void productDetailsPageContainsAllElements_Test() {
         ProductCard product = productsPage.getFirstProduct();
         ProductDetailsPage productDetailsPage = product.openDetails();
 
@@ -65,7 +65,7 @@ public class ProductDetailsTest extends BaseTest {
     }
 
     @Test
-    public void productColorCanBeChanged_Test(){
+    public void productColorCanBeChanged_Test() {
         ProductCard product = productsPage.getFirstProduct();
         ProductDetailsPage productDetailsPage = product.openDetails();
         productDetailsPage.scroll(ScrollDirection.DOWN, 1.0);
@@ -85,7 +85,7 @@ public class ProductDetailsTest extends BaseTest {
     }
 
     @Test
-    public void productQuantityCanBeChanged_Test(){
+    public void productQuantityCanBeChanged_Test() {
         ProductCard product = productsPage.getFirstProduct();
         ProductDetailsPage productDetailsPage = product.openDetails();
         productDetailsPage.scroll(ScrollDirection.DOWN, 1.0);
@@ -122,7 +122,7 @@ public class ProductDetailsTest extends BaseTest {
     }
 
     @Test
-    public void productRatingCanBeSubmitted_Test(){
+    public void productRatingCanBeSubmitted_Test() {
         ProductCard product = productsPage.getFirstProduct();
         ProductDetailsPage productDetailsPage = product.openDetails();
         productDetailsPage.scroll(ScrollDirection.DOWN, 1.0);
@@ -140,7 +140,7 @@ public class ProductDetailsTest extends BaseTest {
     }
 
     @Test
-    public void productDetailsScreenCanBeScrolledDown_Test(){
+    public void productDetailsScreenCanBeScrolledDown_Test() {
         ProductCard product = productsPage.getFirstProduct();
         ProductDetailsPage productDetailsPage = product.openDetails();
 
@@ -152,6 +152,4 @@ public class ProductDetailsTest extends BaseTest {
         Assert.assertTrue(productDetailsPage.productHighlights().isDisplayed(),
                 "Product highlights are not displayed after scrolling one screen down");
     }
-
-
 }

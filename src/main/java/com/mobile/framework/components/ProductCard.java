@@ -29,4 +29,3 @@ public final class ProductCard extends ProductItem {
         return new ReviewDialog();
     }
 }
-    

@@ -21,8 +21,7 @@ public class MobileConfig {
 
     public static final String APPIUM_URL = "http://127.0.0.1:4723";
 
-
-    //iOS only
+    // iOS only
     public static final String IOS_BUNDLE_ID = "";
 
     public static final String IOS_APP_PATH = "";

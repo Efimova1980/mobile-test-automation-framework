@@ -1,4 +1,5 @@
 package com.mobile.tests.utils;
+
 import com.mobile.framework.core.DriverHolder;
 import com.mobile.framework.core.device.DeviceManagers;
 import org.openqa.selenium.OutputType;
@@ -12,8 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 
-
-public class TestNGListener implements ITestListener{
+public class TestNGListener implements ITestListener {
     Logger logger = LoggerFactory.getLogger(TestNGListener.class);
 
     @Override
@@ -72,7 +72,6 @@ public class TestNGListener implements ITestListener{
                 logger.warn("Failed to take screenshot", e);
             }
         }
-
     }
 
     @Override
@@ -89,7 +88,6 @@ public class TestNGListener implements ITestListener{
         logger.info("Test '{}.{}' started",
                 result.getTestClass().getRealClass().getSimpleName(),
                 result.getMethod().getMethodName());
-
     }
 
     @Override

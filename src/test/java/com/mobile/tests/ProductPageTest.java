@@ -21,13 +21,13 @@ public class ProductPageTest extends BaseTest {
     private SoftAssert softAssert;
 
     @BeforeMethod(alwaysRun = true)
-    public void initPage(){
+    public void initPage() {
         productsPage = new ProductsPage();
         softAssert = new SoftAssert();
     }
 
     @Test
-    public void productsPageAndCatalogAreDisplayed_Test(){
+    public void productsPageAndCatalogAreDisplayed_Test() {
         List<String> visibleProductTitles =
                 productsPage.getVisibleProductTitles();
 
@@ -45,7 +45,7 @@ public class ProductPageTest extends BaseTest {
     }
 
     @Test
-    public void productCardContainsBasicInformation_Test(){
+    public void productCardContainsBasicInformation_Test() {
         ProductCard product = productsPage.getFirstProduct();
         String title = product.title().text();
         String price = product.price().text();
@@ -66,7 +66,7 @@ public class ProductPageTest extends BaseTest {
     }
 
     @Test
-    public void productDetailsPageOpensWhenClickOnProductImage_Test(){
+    public void productDetailsPageOpensWhenClickOnProductImage_Test() {
         ProductCard product = productsPage.getFirstProduct();
         String expectedTitle = product.title().text();
 
@@ -79,7 +79,7 @@ public class ProductPageTest extends BaseTest {
     }
 
     @Test
-    public void productRatingCanBeSubmitted_Test(){
+    public void productRatingCanBeSubmitted_Test() {
         ProductCard product = productsPage.getFirstProduct();
         ReviewDialog reviewDialog = product.rateProduct(5);
 
@@ -94,7 +94,7 @@ public class ProductPageTest extends BaseTest {
     }
 
     @Test
-    public void productsCatalogScrolls_Test(){
+    public void productsCatalogScrolls_Test() {
         List<String> visibleTitlesBeforeScroll =
                 productsPage.getVisibleProductTitles();
 
