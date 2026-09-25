@@ -1,6 +1,7 @@
 package com.mobile.framework.core.device;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -35,7 +36,7 @@ final class DeviceCommandRunner {
             }
 
             checkExitCode(command, process.exitValue(), errorFile);
-            return Files.readString(outputFile);
+            return readFile(outputFile);
         } finally {
             Files.deleteIfExists(outputFile);
             Files.deleteIfExists(errorFile);
@@ -44,12 +45,20 @@ final class DeviceCommandRunner {
 
     private static void checkExitCode(List<String> command, int exitCode, Path errorFile) throws IOException {
         if (exitCode != 0) {
-            String error = Files.readString(errorFile).trim();
+            String error = readFile(errorFile).trim();
             throw new RuntimeException(
                     "Command \"" + String.join(" ", command)
                             + "\" failed with exit code " + exitCode
                             + (error.isEmpty() ? "" : System.lineSeparator() + error)
             );
         }
+    }
+
+    /**
+     * Reads the file as UTF-8, replacing invalid bytes instead of failing
+     * ({@link Files#readString} throws on them).
+     */
+    private static String readFile(Path file) throws IOException {
+        return new String(Files.readAllBytes(file), StandardCharsets.UTF_8);
     }
 }
