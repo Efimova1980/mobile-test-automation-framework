@@ -24,8 +24,13 @@ dependencies {
     testImplementation("org.testng:testng:7.10.2")
 }
 
+val platform = (findProperty("platform") as String?) ?: "android"
+
 tasks.test {
-    useTestNG()
+    useTestNG {
+        excludeGroups(if (platform == "ios") "android" else "ios")
+    }
+    systemProperty("platform", platform)
 }
 
 tasks.withType<JavaCompile> {

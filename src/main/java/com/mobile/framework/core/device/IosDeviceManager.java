@@ -54,12 +54,8 @@ public final class IosDeviceManager implements DeviceManager {
 
     @Override
     public boolean isAppInstalled(String appId) throws IOException, InterruptedException {
-        try {
-            DeviceCommandRunner.runCommand(List.of("xcrun", "simctl", "get_app_container", IOS_DEVICE, appId));
-            return true;
-        } catch (RuntimeException e) {
-            return false;
-        }
+        String output = DeviceCommandRunner.runCommand(List.of("xcrun", "simctl", "listapps", IOS_DEVICE));
+        return output.contains("\"" + appId + "\"");
     }
 
     private void uninstallAppIfInstalled(String appId) throws IOException, InterruptedException {

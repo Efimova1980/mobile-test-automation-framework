@@ -13,7 +13,7 @@ import java.io.IOException;
 
 
 @Listeners(TestNGListener.class)
-
+@Test(groups = "android")
 public class AndroidDeviceManagersTest {
 
     @BeforeMethod

@@ -47,6 +47,6 @@ public final class AndroidDeviceManager implements DeviceManager {
     @Override
     public boolean isAppInstalled(String appId) throws IOException, InterruptedException {
         String output = DeviceCommandRunner.runCommand(List.of("adb", "shell", "pm", "list", "packages", appId));
-        return output.contains(appId);
+        return output.lines().anyMatch(line -> line.trim().equals("package:" + appId));
     }
 }

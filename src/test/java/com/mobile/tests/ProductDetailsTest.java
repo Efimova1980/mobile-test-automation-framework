@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 @Listeners(TestNGListener.class)
-
+@Test(groups = "android")
 public class ProductDetailsTest extends AndroidDriverBaseTest {
 
     private ProductsPage productsPage;

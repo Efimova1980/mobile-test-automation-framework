@@ -4,27 +4,40 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 final class DeviceCommandRunner {
+
+    private static final long TIMEOUT_SECONDS = 60;
 
     private DeviceCommandRunner() {
     }
 
     /**
-     * stderr goes to a temp file, not a pipe: reading stdout and stderr pipes one after
-     * another can hang when the unread pipe's buffer fills up.
+     * stdout and stderr go to temp files, not pipes: reading from a pipe blocks while
+     * a hung command is running, so the timeout could never fire.
      */
     static String runCommand(List<String> command) throws IOException, InterruptedException {
+        Path outputFile = Files.createTempFile("device-command", ".out");
         Path errorFile = Files.createTempFile("device-command", ".err");
         try {
             Process process = new ProcessBuilder(command)
+                    .redirectOutput(outputFile.toFile())
                     .redirectError(errorFile.toFile())
                     .start();
 
-            String output = new String(process.getInputStream().readAllBytes());
-            checkExitCode(command, process.waitFor(), errorFile);
-            return output;
+            if (!process.waitFor(TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+                process.destroyForcibly();
+                throw new RuntimeException(
+                        "Command \"" + String.join(" ", command)
+                                + "\" did not finish in " + TIMEOUT_SECONDS + " seconds"
+                );
+            }
+
+            checkExitCode(command, process.exitValue(), errorFile);
+            return Files.readString(outputFile);
         } finally {
+            Files.deleteIfExists(outputFile);
             Files.deleteIfExists(errorFile);
         }
     }

@@ -1,1 +1,1 @@
-rootProject.name = "mobile-auto-tests"
+rootProject.name = "mobile-test-automation-framework"
