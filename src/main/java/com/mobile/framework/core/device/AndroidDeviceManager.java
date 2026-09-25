@@ -1,4 +1,4 @@
-package com.mobile.framework.core;
+package com.mobile.framework.core.device;
 
 import java.io.IOException;
 import java.nio.file.Files;

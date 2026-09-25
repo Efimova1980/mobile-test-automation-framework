@@ -1,5 +1,5 @@
 package com.mobile.tests.utils;
-import com.mobile.framework.core.DeviceManagers;
+import com.mobile.framework.core.device.DeviceManagers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestContext;

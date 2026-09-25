@@ -1,8 +1,10 @@
-package com.mobile.framework.core;
+package com.mobile.framework.core.scroll;
 
 public enum ScrollDirection {
     UP("up"),
-    DOWN("down");
+    DOWN("down"),
+    LEFT("left"),
+    RIGHT("right");
 
     private final String value;
 

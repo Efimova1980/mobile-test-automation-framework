@@ -1,5 +1,6 @@
 package com.mobile.tests;
 
+import com.mobile.framework.core.scroll.ScrollDirection;
 import com.mobile.framework.components.ProductCard;
 import com.mobile.framework.components.ReviewDialog;
 import com.mobile.framework.pages.ProductDetailsPage;
@@ -32,7 +33,7 @@ public class ProductDetailsTest extends AndroidDriverBaseTest {
         softAssert.assertTrue(productDetailsPage.title().isDisplayed(),
                 "Product title is not displayed");
 
-        productDetailsPage.scrollDownOneScreen();
+        productDetailsPage.scroll(ScrollDirection.DOWN, 1.0);
 
         softAssert.assertTrue(productDetailsPage.price().isDisplayed(),
                 "Product price is not displayed");
@@ -68,7 +69,7 @@ public class ProductDetailsTest extends AndroidDriverBaseTest {
     public void productColorCanBeChanged_Test(){
         ProductCard product = productsPage.getFirstProduct();
         ProductDetailsPage productDetailsPage = product.openDetails();
-        productDetailsPage.scrollDownOneScreen();
+        productDetailsPage.scroll(ScrollDirection.DOWN, 1.0);
 
         int colorsCount = productDetailsPage.colorOptions().size();
 
@@ -88,7 +89,7 @@ public class ProductDetailsTest extends AndroidDriverBaseTest {
     public void productQuantityCanBeChanged_Test(){
         ProductCard product = productsPage.getFirstProduct();
         ProductDetailsPage productDetailsPage = product.openDetails();
-        productDetailsPage.scrollDownOneScreen();
+        productDetailsPage.scroll(ScrollDirection.DOWN, 1.0);
 
         int initialQuantity = productDetailsPage.getQuantity();
 
@@ -125,7 +126,7 @@ public class ProductDetailsTest extends AndroidDriverBaseTest {
     public void productRatingCanBeSubmitted_Test(){
         ProductCard product = productsPage.getFirstProduct();
         ProductDetailsPage productDetailsPage = product.openDetails();
-        productDetailsPage.scrollDownOneScreen();
+        productDetailsPage.scroll(ScrollDirection.DOWN, 1.0);
 
         ReviewDialog reviewDialog = productDetailsPage.selectRating(5);
 
@@ -138,4 +139,20 @@ public class ProductDetailsTest extends AndroidDriverBaseTest {
                 "Review confirmation message is incorrect"
         );
     }
+
+    @Test
+    public void productDetailsScreenCanBeScrolledDown_Test(){
+        ProductCard product = productsPage.getFirstProduct();
+        ProductDetailsPage productDetailsPage = product.openDetails();
+
+        Assert.assertFalse(productDetailsPage.productHighlights().isDisplayed(),
+                "Product highlights are already displayed before scrolling");
+
+        productDetailsPage.scrollScreen(ScrollDirection.DOWN, 1.0);
+
+        Assert.assertTrue(productDetailsPage.productHighlights().isDisplayed(),
+                "Product highlights are not displayed after scrolling one screen down");
+    }
+
+
 }

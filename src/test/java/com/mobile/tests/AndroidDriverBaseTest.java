@@ -1,7 +1,7 @@
 package com.mobile.tests;
 
 import com.mobile.framework.config.MobileConfig;
-import com.mobile.framework.core.DeviceManagers;
+import com.mobile.framework.core.device.DeviceManagers;
 import com.mobile.framework.core.DriverManager;
 import com.mobile.framework.core.Platform;
 import org.testng.annotations.AfterMethod;

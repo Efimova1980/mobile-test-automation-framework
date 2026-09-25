@@ -1,5 +1,6 @@
 package com.mobile.tests;
 
+import com.mobile.framework.core.scroll.ScrollDirection;
 import com.mobile.framework.components.ProductCard;
 import com.mobile.framework.components.ReviewDialog;
 import com.mobile.framework.pages.ProductDetailsPage;
@@ -98,7 +99,7 @@ public class ProductPageTest extends AndroidDriverBaseTest{
         List<String> visibleTitlesBeforeScroll =
                 productsPage.getVisibleProductTitles();
 
-        productsPage.scrollDownOneScreen();
+        productsPage.scroll(ScrollDirection.DOWN, 1.0);
 
         List<String> visibleTitlesAfterScroll =
                 productsPage.getVisibleProductTitles();

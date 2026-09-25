@@ -1,7 +1,7 @@
 package com.mobile.tests;
 
 import com.mobile.framework.config.MobileConfig;
-import com.mobile.framework.core.DeviceManagers;
+import com.mobile.framework.core.device.DeviceManagers;
 import com.mobile.framework.core.Platform;
 import com.mobile.tests.utils.TestNGListener;
 import org.testng.Assert;
@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @Listeners(TestNGListener.class)
 
-public class AndroidDeviceManagersExampleTest{
+public class AndroidDeviceManagersTest {
 
     @BeforeMethod
     public void setupEnvironment() throws IOException, InterruptedException {

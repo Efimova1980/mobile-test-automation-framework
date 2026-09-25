@@ -6,7 +6,7 @@ import io.appium.java_client.android.AndroidDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class AndroidDriverExampleTest extends AndroidDriverBaseTest {
+public class AndroidDriverTest extends AndroidDriverBaseTest {
 
     @Test
     public void sessionIDIsNotNullTest(){
