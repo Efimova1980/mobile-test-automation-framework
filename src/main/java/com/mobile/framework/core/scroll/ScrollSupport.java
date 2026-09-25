@@ -22,6 +22,12 @@ final class ScrollSupport {
      */
     private static final double SCREEN_EDGE_INSET = 0.1;
 
+    /**
+     * Share of the container size skipped at each edge, so the gesture does not start
+     * on a neighbour element. Same as UiAutomator2 does for element scroll on Android.
+     */
+    private static final double CONTAINER_EDGE_INSET = 0.1;
+
     private ScrollSupport() {
     }
 
@@ -55,5 +61,16 @@ final class ScrollSupport {
         int height = size.getHeight() - 2 * top;
         // Selenium Rectangle takes (x, y, height, width)
         return new Rectangle(left, top, height, width);
+    }
+
+    /**
+     * Container rectangle without the edge insets.
+     */
+    static Rectangle insetArea(Rectangle container) {
+        int dx = (int) (container.getWidth() * CONTAINER_EDGE_INSET);
+        int dy = (int) (container.getHeight() * CONTAINER_EDGE_INSET);
+        // Selenium Rectangle takes (x, y, height, width)
+        return new Rectangle(container.getX() + dx, container.getY() + dy,
+                container.getHeight() - 2 * dy, container.getWidth() - 2 * dx);
     }
 }

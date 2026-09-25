@@ -25,7 +25,7 @@ public class IosScroller implements Scroller {
     public void scrollContainer(View scrollableView, ScrollDirection direction, double percent) {
         ScrollSupport.validatePercent(percent);
 
-        Rectangle area = ScrollSupport.waitForVisible(scrollableView).getRect();
+        Rectangle area = ScrollSupport.insetArea(ScrollSupport.waitForVisible(scrollableView).getRect());
         drag(area, direction, percent);
     }
 
