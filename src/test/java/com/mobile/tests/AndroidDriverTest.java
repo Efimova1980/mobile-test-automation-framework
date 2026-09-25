@@ -7,7 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 @Test(groups = "android")
-public class AndroidDriverTest extends AndroidDriverBaseTest {
+public class AndroidDriverTest extends BaseTest {
 
     @Test
     public void sessionIDIsNotNullTest(){

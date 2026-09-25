@@ -25,10 +25,21 @@ dependencies {
 }
 
 val platform = (findProperty("platform") as String?) ?: "android"
+val otherPlatform = if (platform == "ios") "android" else "ios"
+
+val frameworkTest = tasks.register<Test>("frameworkTest") {
+    description = "Framework self-tests (no device needed)."
+    testClassesDirs = sourceSets.test.get().output.classesDirs
+    classpath = sourceSets.test.get().runtimeClasspath
+    useTestNG {
+        includeGroups("framework")
+    }
+}
 
 tasks.test {
+    dependsOn(frameworkTest)
     useTestNG {
-        excludeGroups(if (platform == "ios") "android" else "ios")
+        excludeGroups(otherPlatform, "framework")
     }
     systemProperty("platform", platform)
 }

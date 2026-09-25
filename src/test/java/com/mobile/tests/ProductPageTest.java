@@ -15,8 +15,7 @@ import org.testng.asserts.SoftAssert;
 import java.util.List;
 
 @Listeners(TestNGListener.class)
-@Test(groups = "android")
-public class ProductPageTest extends AndroidDriverBaseTest {
+public class ProductPageTest extends BaseTest {
 
     private ProductsPage productsPage;
     private SoftAssert softAssert;

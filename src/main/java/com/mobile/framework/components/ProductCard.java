@@ -19,7 +19,9 @@ public final class ProductCard extends ProductItem {
 
     public ProductDetailsPage openDetails() {
         tap();
-        return new ProductDetailsPage();
+        ProductDetailsPage page = new ProductDetailsPage();
+        page.title().waitUntilVisible();
+        return page;
     }
 
     public ReviewDialog rateProduct(int rating) {

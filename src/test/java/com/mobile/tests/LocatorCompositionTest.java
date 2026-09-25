@@ -9,9 +9,11 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
+/**
+ * Framework self-test: checks how locators are composed, no device or app needed.
+ */
+@Test(groups = "framework")
 public class LocatorCompositionTest {
-
-
 
     @Test
     public void locatorResolvesAndroidWhenPlatformIsAndroid() {
