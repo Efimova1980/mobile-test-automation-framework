@@ -21,7 +21,5 @@ public interface DeviceManager {
 
     String getLogs() throws IOException, InterruptedException;
 
-    void takeScreenshot(String fileName) throws IOException, InterruptedException;
-
     boolean isAppInstalled(String appId) throws IOException, InterruptedException;
 }

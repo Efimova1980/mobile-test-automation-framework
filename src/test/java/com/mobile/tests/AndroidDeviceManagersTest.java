@@ -25,7 +25,6 @@ public class AndroidDeviceManagersTest {
         }
     }
 
-
     @Test
     public void installAppTestPositive() throws IOException, InterruptedException {
         DeviceManagers.current().installApp(MobileConfig.ANDROID_APK_PATH);

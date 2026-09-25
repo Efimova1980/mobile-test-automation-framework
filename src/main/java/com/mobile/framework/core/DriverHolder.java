@@ -20,6 +20,14 @@ public final class DriverHolder {
         return d;
     }
 
+    /**
+     * Checks whether a driver session is open for the current thread,
+     * i.e. whether {@link #driver()} can be called without an exception.
+     */
+    public static boolean hasDriver() {
+        return DRIVER.get() != null;
+    }
+
     public static void clear() {
         AppiumDriver d = DRIVER.get();
         if (d != null) {

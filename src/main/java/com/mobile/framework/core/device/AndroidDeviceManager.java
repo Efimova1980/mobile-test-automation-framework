@@ -1,8 +1,6 @@
 package com.mobile.framework.core.device;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -44,15 +42,6 @@ public final class AndroidDeviceManager implements DeviceManager {
     @Override
     public String getLogs() throws IOException, InterruptedException {
         return DeviceCommandRunner.runCommand(List.of("adb", "logcat", "-d", "-t", "100", "*:E"));
-    }
-
-    @Override
-    public void takeScreenshot(String fileName) throws IOException, InterruptedException {
-        Path screenshotsDir = Path.of("build", "screenshots");
-        Files.createDirectories(screenshotsDir);
-        Path screenshotPath = screenshotsDir.resolve(fileName + ".png");
-
-        DeviceCommandRunner.runCommand(List.of("adb", "exec-out", "screencap", "-p"), screenshotPath);
     }
 
     @Override

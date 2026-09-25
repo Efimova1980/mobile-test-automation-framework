@@ -1,11 +1,15 @@
 package com.mobile.tests.utils;
+import com.mobile.framework.core.DriverHolder;
 import com.mobile.framework.core.device.DeviceManagers;
+import org.openqa.selenium.OutputType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 
 
@@ -33,8 +37,8 @@ public class TestNGListener implements ITestListener{
     public void onTestFailedWithTimeout(ITestResult result) {
         ITestListener.super.onTestFailedWithTimeout(result);
         logger.info("Test '{}.{}' failed with timeout",
-                result.getMethod().getMethodName(),
-                result.getTestClass().getRealClass().getSimpleName());
+                result.getTestClass().getRealClass().getSimpleName(),
+                result.getMethod().getMethodName());
     }
 
     @Override
@@ -56,12 +60,17 @@ public class TestNGListener implements ITestListener{
             logger.warn("Failed to get device logs", e);
         }
 
-        try {
-            String fName =  "device_scrn" + System.currentTimeMillis();
-            DeviceManagers.current().takeScreenshot(fName);
-            logger.info("Screenshot saved to build/screenshots/{}.png", fName);
-        } catch (Exception e) {
-            logger.warn("Failed to take screenshot", e);
+        if (DriverHolder.hasDriver()) {
+            try {
+                Path screenshotsDir = Path.of("build", "screenshots");
+                Files.createDirectories(screenshotsDir);
+                Path screenshot = screenshotsDir.resolve("device_scrn" + System.currentTimeMillis() + ".png");
+
+                Files.write(screenshot, DriverHolder.driver().getScreenshotAs(OutputType.BYTES));
+                logger.info("Screenshot saved to {}", screenshot);
+            } catch (Exception e) {
+                logger.warn("Failed to take screenshot", e);
+            }
         }
 
     }
@@ -70,16 +79,16 @@ public class TestNGListener implements ITestListener{
     public void onTestSkipped(ITestResult result) {
         ITestListener.super.onTestSkipped(result);
         logger.info("Test '{}.{}' skipped",
-                result.getMethod().getMethodName(),
-                result.getTestClass().getRealClass().getSimpleName());
+                result.getTestClass().getRealClass().getSimpleName(),
+                result.getMethod().getMethodName());
     }
 
     @Override
     public void onTestStart(ITestResult result) {
         ITestListener.super.onTestStart(result);
         logger.info("Test '{}.{}' started",
-                result.getMethod().getMethodName(),
-                result.getTestClass().getRealClass().getSimpleName());
+                result.getTestClass().getRealClass().getSimpleName(),
+                result.getMethod().getMethodName());
 
     }
 
@@ -87,7 +96,7 @@ public class TestNGListener implements ITestListener{
     public void onTestSuccess(ITestResult result) {
         ITestListener.super.onTestSuccess(result);
         logger.info("Test '{}.{}' passed successfully",
-                result.getMethod().getMethodName(),
-                result.getTestClass().getRealClass().getSimpleName());
+                result.getTestClass().getRealClass().getSimpleName(),
+                result.getMethod().getMethodName());
     }
 }

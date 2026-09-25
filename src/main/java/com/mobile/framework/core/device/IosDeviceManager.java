@@ -1,8 +1,6 @@
 package com.mobile.framework.core.device;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -51,17 +49,6 @@ public final class IosDeviceManager implements DeviceManager {
                 "--style", "compact",
                 "--last", "1m",
                 "--predicate", "eventType == logEvent"
-        ));
-    }
-
-    @Override
-    public void takeScreenshot(String fileName) throws IOException, InterruptedException {
-        Path screenshotsDir = Path.of("build", "screenshots");
-        Files.createDirectories(screenshotsDir);
-        Path screenshotPath = screenshotsDir.resolve(fileName + ".png");
-
-        DeviceCommandRunner.runCommand(List.of(
-                "xcrun", "simctl", "io", IOS_DEVICE, "screenshot", screenshotPath.toString()
         ));
     }
 
