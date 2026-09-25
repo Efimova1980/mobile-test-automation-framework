@@ -85,6 +85,22 @@ public abstract class BasePage {
         Scrollers.current().scrollContainer(container, direction, percent);
     }
 
+    /**
+     * Element that appears when the page content is loaded.
+     * By default it is the page root; override it when the content
+     * is loaded asynchronously (e.g. a list that loads its items).
+     */
+    protected View loadedIndicator() {
+        return new View(Locator.same(""), rootLocator);
+    }
+
+    /**
+     * Waits until the page content is loaded, see {@link #loadedIndicator()}.
+     */
+    public void waitUntilLoaded() {
+        loadedIndicator().waitUntilVisible();
+    }
+
     public boolean isDisplayed() {
         try {
             return DriverHolder.driver().findElement(org.openqa.selenium.By.xpath(rootXPath())).isDisplayed();

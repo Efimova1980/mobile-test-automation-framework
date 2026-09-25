@@ -41,11 +41,10 @@ public class View {
 
 
     public void tap() {
-        WebElement el = DriverHolder.driver().findElement(by());
-        el.click();
+        waitUntilVisible().click();
     }
 
-    private WebElement waitUntilVisible() {
+    public WebElement waitUntilVisible() {
         return new WebDriverWait(
                 DriverHolder.driver(),
                 Duration.ofSeconds(20)
@@ -59,7 +58,7 @@ public class View {
     }
 
     public void enterText(String text) {
-        WebElement el = DriverHolder.driver().findElement(by());
+        WebElement el = waitUntilVisible();
         el.clear();
         el.sendKeys(text);
     }
@@ -73,7 +72,7 @@ public class View {
     }
 
     public boolean isEnabled() {
-        return DriverHolder.driver().findElement(by()).isEnabled();
+        return waitUntilVisible().isEnabled();
     }
 
     public boolean exists() {

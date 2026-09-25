@@ -41,7 +41,17 @@ public class ProductsPage extends BasePage {
         );
     }
 
+    /**
+     * The catalog is loaded asynchronously, after the page title.
+     */
+    @Override
+    protected View loadedIndicator() {
+        return firstProduct();
+    }
+
     private List<ProductCard> products() {
+        waitUntilLoaded();
+
         List<View> cardRoots = views(
                 "//*[contains(@resource-id, 'id/productRV')]/*",
                 ""
